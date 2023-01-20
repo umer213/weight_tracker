@@ -4,7 +4,7 @@ import 'package:weight_tracker/controller/auth_controler.dart';
 import 'package:weight_tracker/screens/signup.dart';
 
 //did not use basic things like app bar
-//did not focus on the use beacuse i will learn rive and implement those animations later
+//did not focus on the ui beacuse i will learn rive and implement those animations later
 
 class LogIn extends GetWidget<Auth> {
   final TextEditingController _emailController = TextEditingController();
