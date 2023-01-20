@@ -31,7 +31,11 @@ class UserWeightList extends GetWidget<StoreWeightController> {
 
   Widget deleteRcord() {
     return CircleAvatar(
-      child: InkWell(onTap: () {}, child: Icon(Icons.delete)),
+      child: InkWell(
+          onTap: () {
+            controller.delete();
+          },
+          child: Icon(Icons.delete)),
     );
   }
 }

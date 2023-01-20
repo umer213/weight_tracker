@@ -29,6 +29,16 @@ class StoreWeightController extends GetxController {
     }
   }
 
+  void delete() async {
+    try {
+      await _collectionReference.doc().delete();
+      Get.snackbar("Sucesss", "This entry was deleted");
+    } catch (e) {
+      Get.snackbar("Something went wrong", e.toString(),
+          snackPosition: SnackPosition.TOP);
+    }
+  }
+
   Stream<List<UserWeightModel>> listUserWight() =>
       _collectionReference.snapshots().map((event) =>
           event.docs.map((e) => UserWeightModel.fromMap(e)).toList());
