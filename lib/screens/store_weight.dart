@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:weight_tracker/controller/auth_controler.dart';
 import 'package:weight_tracker/controller/store_weight_controller.dart';
 import 'package:weight_tracker/screens/get_weight.dart';
@@ -18,11 +19,24 @@ class StoreWeightScreen extends GetWidget<StoreWeightController> {
     return SafeArea(
       child: Scaffold(
         floatingActionButton: floatButton(),
-        body: Container(
-          alignment: Alignment.center,
-          child: SingleChildScrollView(
-            child: _weightColumn(),
-          ),
+        body: Stack(
+          children: [
+            Positioned(
+              top: 100,
+              left: 150,
+              child: Container(
+                child: Lottie.asset(
+                  "assets/balance.json",
+                ),
+              ),
+            ),
+            Container(
+              alignment: Alignment.center,
+              child: SingleChildScrollView(
+                child: _weightColumn(),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -67,7 +81,8 @@ class StoreWeightScreen extends GetWidget<StoreWeightController> {
         onPressed: () {
           // StoreWeightController.instance
           //     .saveUserWeight(nameController.text, weightController.text);
-          controller.saveUserWeight(nameController.text, weightController.text);
+          controller.saveUserWeight(
+              nameController.text, weightController.text, "");
           _clearText();
         },
         child: Text("Store"));
@@ -88,7 +103,7 @@ class StoreWeightScreen extends GetWidget<StoreWeightController> {
 
   Widget floatButton() {
     return Container(
-      alignment: Alignment.bottomCenter,
+      alignment: Alignment.bottomRight,
       child: FloatingActionButton(
         onPressed: () {
           Auth.instance.singOut();

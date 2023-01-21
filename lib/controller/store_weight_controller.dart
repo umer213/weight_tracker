@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
@@ -19,7 +21,7 @@ class StoreWeightController extends GetxController {
     userWeight.bindStream(listUserWight());
   }
 
-  void saveUserWeight(String name, String weight) async {
+  void saveUserWeight(String name, String weight, String documentId) async {
     try {
       await _collectionReference.add({"name": name, "weight": weight});
       Get.snackbar("Sucesss", "The Weight was Stored");
@@ -29,9 +31,22 @@ class StoreWeightController extends GetxController {
     }
   }
 
-  void delete() async {
+  Future updateWeight(String name, String weight, String doucumentId) async {
     try {
-      await _collectionReference.doc().delete();
+      await _collectionReference
+          .doc(doucumentId)
+          .update({"name": name, "weight": weight});
+
+      Get.snackbar("Sucesss", "The record was updated");
+    } catch (e) {
+      Get.snackbar("Something went wrong", e.toString(),
+          snackPosition: SnackPosition.TOP);
+    }
+  }
+
+  void deleteRecord(String id) async {
+    try {
+      await _collectionReference.doc(id).delete();
       Get.snackbar("Sucesss", "This entry was deleted");
     } catch (e) {
       Get.snackbar("Something went wrong", e.toString(),

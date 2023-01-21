@@ -16,7 +16,13 @@ class LogIn extends GetWidget<Auth> {
         child: Scaffold(
       body: Stack(
         children: [
-          // Image.asset("assets/balance.jpg",fit: BoxFit.cover,),
+          Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("assets/blance.jpg"), fit: BoxFit.cover)),
+            //will not show good ui with this image but can use good backgroud animation instead
+            //of image will make it look better
+          ),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 10),
             alignment: Alignment.center,
@@ -68,7 +74,7 @@ class LogIn extends GetWidget<Auth> {
       child: TextField(
         controller: _passwordController,
         decoration: InputDecoration(
-            hintText: 'Email',
+            hintText: 'password',
             enabledBorder: InputBorder.none,
             focusedBorder: InputBorder.none),
       ),
@@ -88,12 +94,16 @@ class LogIn extends GetWidget<Auth> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("Create an account !"),
+        Text(
+          "Create an account !",
+          style: TextStyle(color: Colors.white, fontSize: 17),
+        ),
         TextButton(
           onPressed: () {
             Get.off(SignUp());
           },
-          child: Text('sing up'),
+          child: Text('sing up',
+              style: TextStyle(color: Colors.amber, fontSize: 17)),
         )
       ],
     );

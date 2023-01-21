@@ -11,6 +11,9 @@ class Auth extends GetxController {
   late Rx<User?> user;
   FirebaseAuth _auth = FirebaseAuth.instance;
 
+  // we can also use list(collection of users)  to store
+  //their own records of weight and many other things
+
   @override
   void onReady() {
     // TODO: implement onReady

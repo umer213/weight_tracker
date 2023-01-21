@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weight_tracker/controller/auth_controler.dart';
+import 'package:weight_tracker/screens/login.dart';
 
 class SignUp extends GetWidget<Auth> {
   final TextEditingController _emailController = TextEditingController();
@@ -100,7 +101,7 @@ class SignUp extends GetWidget<Auth> {
         Text("Already have account ?"),
         TextButton(
           onPressed: () {
-            Get.off(SignUp());
+            Get.off(LogIn());
           },
           child: Text('Log in'),
         )
