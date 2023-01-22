@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weight_tracker/controller/auth_controler.dart';
 import 'package:weight_tracker/screens/login.dart';
+import 'package:weight_tracker/widgets/text.dart';
+
+import '../widgets/app_bar.dart';
 
 class SignUp extends GetWidget<Auth> {
   final TextEditingController _emailController = TextEditingController();
@@ -12,10 +15,26 @@ class SignUp extends GetWidget<Auth> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      body: Container(
-        margin: EdgeInsets.symmetric(horizontal: 10),
-        alignment: Alignment.center,
-        child: SingleChildScrollView(child: _myColumn()),
+      appBar: PreferredSize(
+          preferredSize: Size.fromHeight(60),
+          child: MyAppBar(
+            text: "Sign Up ",
+            autoImp: false,
+          )),
+      body: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+                gradient: LinearGradient(
+              colors: [Color.fromARGB(255, 193, 80, 213), Colors.blue],
+            )),
+          ),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 10),
+            alignment: Alignment.center,
+            child: SingleChildScrollView(child: _myColumn()),
+          ),
+        ],
       ),
     ));
   }
@@ -23,6 +42,7 @@ class SignUp extends GetWidget<Auth> {
   Widget _myColumn() {
     return Column(
       children: [
+        welcome_Feild(),
         nameFeild(),
         emailFeild(),
         passwordFeild(),
@@ -37,7 +57,7 @@ class SignUp extends GetWidget<Auth> {
       margin: EdgeInsets.symmetric(vertical: 13),
       padding: EdgeInsets.all(5),
       decoration: BoxDecoration(
-          border: Border.all(color: Colors.purple),
+          border: Border.all(color: Colors.white),
           borderRadius: BorderRadius.circular(13)),
       child: TextField(
         controller: _nameController,
@@ -54,12 +74,13 @@ class SignUp extends GetWidget<Auth> {
       margin: EdgeInsets.symmetric(vertical: 13),
       padding: EdgeInsets.all(5),
       decoration: BoxDecoration(
-          border: Border.all(color: Colors.purple),
+          border: Border.all(color: Colors.white),
           borderRadius: BorderRadius.circular(13)),
       child: TextField(
         controller: _emailController,
         decoration: InputDecoration(
             hintText: 'Email',
+            hintStyle: TextStyle(color: Colors.white),
             enabledBorder: InputBorder.none,
             focusedBorder: InputBorder.none),
       ),
@@ -71,12 +92,14 @@ class SignUp extends GetWidget<Auth> {
       margin: EdgeInsets.symmetric(vertical: 13),
       padding: EdgeInsets.all(5),
       decoration: BoxDecoration(
-          border: Border.all(color: Colors.purple),
+          border: Border.all(color: Colors.white),
           borderRadius: BorderRadius.circular(13)),
       child: TextField(
+        style: TextStyle(color: Colors.white),
         controller: _passwordController,
         decoration: InputDecoration(
             hintText: 'password',
+            hintStyle: TextStyle(color: Colors.white),
             enabledBorder: InputBorder.none,
             focusedBorder: InputBorder.none),
       ),
@@ -90,7 +113,7 @@ class SignUp extends GetWidget<Auth> {
           ..createUser(_nameController.text, _emailController.text,
               _passwordController.text);
       },
-      child: Text('LogIn'),
+      child: AppNormalText(text: "Signup"),
     );
   }
 
@@ -98,14 +121,28 @@ class SignUp extends GetWidget<Auth> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("Already have account ?"),
+        AppNormalText(text: "Already have account ?"),
         TextButton(
-          onPressed: () {
-            Get.off(LogIn());
-          },
-          child: Text('Log in'),
-        )
+            onPressed: () {
+              Get.off(LogIn());
+            },
+            child: AppNormalText(
+              text: "LogIn",
+              color: Colors.black,
+            ))
       ],
+    );
+  }
+
+  Widget welcome_Feild() {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 15),
+      child: AppRichText(
+        text1: "Wel ",
+        color1: Colors.white,
+        text2: 'Come',
+        color2: Colors.green,
+      ),
     );
   }
 }

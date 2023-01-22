@@ -5,6 +5,8 @@ import 'package:weight_tracker/controller/auth_controler.dart';
 import 'package:weight_tracker/controller/store_weight_controller.dart';
 import 'package:weight_tracker/screens/get_weight.dart';
 
+import '../widgets/app_bar.dart';
+
 class StoreWeightScreen extends GetWidget<StoreWeightController> {
   TextEditingController nameController = TextEditingController();
   TextEditingController weightController = TextEditingController();
@@ -18,6 +20,12 @@ class StoreWeightScreen extends GetWidget<StoreWeightController> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: PreferredSize(
+            preferredSize: Size.fromHeight(60),
+            child: MyAppBar(
+              text: "HomePage",
+              autoImp: false,
+            )),
         floatingActionButton: floatButton(),
         body: Stack(
           children: [

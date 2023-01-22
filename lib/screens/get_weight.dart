@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weight_tracker/controller/store_weight_controller.dart';
+import 'package:weight_tracker/widgets/text.dart';
 
 class UserWeightList extends GetWidget<StoreWeightController> {
   TextEditingController nameController = TextEditingController();
   TextEditingController weightController = TextEditingController();
 
-  get index => null;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -30,16 +30,21 @@ class UserWeightList extends GetWidget<StoreWeightController> {
             onTap: () {
               nameController.text = "${controller.userWeight[index].name}";
               weightController.text = "${controller.userWeight[index].weight}";
-
-              _editRecord(
+              showAlertDialog(
                   context, "${controller.userWeight[index].documentId}");
             },
             child: Card(
               margin: EdgeInsets.symmetric(vertical: 10),
               elevation: 3,
               child: ListTile(
-                leading: Text("${controller.userWeight[index].name}"),
-                title: Text("${controller.userWeight[index].weight}"),
+                leading: AppNormalText(
+                  text: "${controller.userWeight[index].name}",
+                  color: Colors.black,
+                ),
+                title: AppLargeText(
+                  text: "${controller.userWeight[index].weight}",
+                  color: Colors.purple,
+                ),
                 trailing: deleteRcord(controller.userWeight[index].documentId!),
               ),
             ),
@@ -57,59 +62,37 @@ class UserWeightList extends GetWidget<StoreWeightController> {
     );
   }
 
-  _editRecord(BuildContext context, String id) {
-    showBottomSheet(
-        context: context,
-        builder: ((context) {
-          return Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                _nameFeild(),
-                _weightFeild(),
-                updateButton(context),
-              ],
-            ),
-          );
-        }));
-  }
-
-  Widget updateButton(BuildContext context) {
-    return ElevatedButton(
-        onPressed: () {
-          controller.updateWeight(nameController.text, weightController.text,
-              "${controller.userWeight[index].documentId}");
-          Navigator.pop(context);
-        },
-        child: Text("Update"));
-  }
-
-  Widget _nameFeild() {
-    return Container(
-      margin: EdgeInsets.all(10),
-      child: TextField(
-        controller: nameController,
-        decoration: InputDecoration(
-            label: Text("Name"),
-            hintText: "Enter your name",
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(25))),
-      ),
+  showAlertDialog(BuildContext context, String id) {
+    Widget UpdateButton = TextButton(
+      child: Text("OK"),
+      onPressed: () {
+        controller.updateWeight(nameController.text, weightController.text, id);
+        Navigator.of(context).pop();
+      },
     );
-  }
 
-  Widget _weightFeild() {
-    return Container(
-      margin: EdgeInsets.all(10),
-      child: TextField(
-        controller: weightController,
-        decoration: InputDecoration(
-            label: Text("weight"),
-            hintText: "Enter your weight",
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(25))),
+    AlertDialog alert = AlertDialog(
+      title: Text("Update"),
+      content: Container(
+        height: 300,
+        child: Column(
+          children: [
+            TextField(
+              controller: nameController,
+            ),
+            TextField(
+              controller: weightController,
+            ),
+          ],
+        ),
       ),
+      actions: [UpdateButton],
+    );
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }
