@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:weight_tracker/controller/auth_controler.dart';
 import 'package:weight_tracker/controller/store_weight_controller.dart';
@@ -90,7 +91,10 @@ class StoreWeightScreen extends GetWidget<StoreWeightController> {
           // StoreWeightController.instance
           //     .saveUserWeight(nameController.text, weightController.text);
           controller.saveUserWeight(
-              nameController.text, weightController.text, "");
+            nameController.text,
+            weightController.text,
+            "",
+          );
           _clearText();
         },
         child: Text("Store"));

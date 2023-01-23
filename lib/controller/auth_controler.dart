@@ -37,7 +37,7 @@ class Auth extends GetxController {
     try {
       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      Get.snackbar("welcome${email.toString()}", email.removeAllWhitespace,
+      Get.snackbar(" welcome ${email.toString()}", email.removeAllWhitespace,
           snackPosition: SnackPosition.TOP);
     } on FirebaseAuthException catch (e) {
       Get.snackbar("Something went wrong", e.toString(),
@@ -58,7 +58,7 @@ class Auth extends GetxController {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
       Get.snackbar(
-        "welcome Back ${email.toString()}",
+        " welcome Back ${email.toString()}",
         email.removeAllWhitespace,
         snackPosition: SnackPosition.TOP,
       );

@@ -1,19 +1,32 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:weight_tracker/controller/store_weight_controller.dart';
+import 'package:weight_tracker/widgets/app_bar.dart';
 import 'package:weight_tracker/widgets/text.dart';
 
 class UserWeightList extends GetWidget<StoreWeightController> {
   TextEditingController nameController = TextEditingController();
   TextEditingController weightController = TextEditingController();
 
+  var dateFormat = {
+    1: "jan",
+    2: "jan",
+    3: "jan",
+    4: "jan",
+  };
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-            appBar: AppBar(
-              title: Text("Records"),
-              centerTitle: true,
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(60),
+              child: MyAppBar(
+                text: "Records",
+                autoImp: true,
+              ),
             ),
             backgroundColor: Colors.black87,
             body: Obx(
@@ -44,6 +57,11 @@ class UserWeightList extends GetWidget<StoreWeightController> {
                 title: AppLargeText(
                   text: "${controller.userWeight[index].weight}",
                   color: Colors.purple,
+                ),
+                subtitle: AppNormalText(
+                  text: "${controller.userWeight[index].dateTime!.toDate()}",
+                  size: 13,
+                  color: Colors.green,
                 ),
                 trailing: deleteRcord(controller.userWeight[index].documentId!),
               ),

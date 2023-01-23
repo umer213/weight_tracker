@@ -5,6 +5,7 @@ class StoreBinding extends Bindings {
   @override
   void dependencies() {
     // TODO: implement dependencies
-    Get.lazyPut<StoreWeightController>(() => StoreWeightController());
+    Get.lazyPut<StoreWeightController>(() => StoreWeightController(),
+        fenix: true);
   }
 }

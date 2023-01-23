@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../models/user_weight_model.dart';
 
@@ -17,13 +18,22 @@ class StoreWeightController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    // StoreWeightController.instance;
     _collectionReference = firebaseFirestore.collection("userData");
     userWeight.bindStream(listUserWight());
   }
 
-  void saveUserWeight(String name, String weight, String documentId) async {
+  void saveUserWeight(
+    String name,
+    String weight,
+    String documentId,
+  ) async {
     try {
-      await _collectionReference.add({"name": name, "weight": weight});
+      await _collectionReference.add({
+        "name": name,
+        "weight": weight,
+        "time": FieldValue.serverTimestamp(),
+      });
       Get.snackbar("Sucesss", "The Weight was Stored");
     } catch (e) {
       Get.snackbar("Something went wrong", e.toString(),
@@ -54,7 +64,9 @@ class StoreWeightController extends GetxController {
     }
   }
 
-  Stream<List<UserWeightModel>> listUserWight() =>
-      _collectionReference.snapshots().map((event) =>
+  Stream<List<UserWeightModel>> listUserWight() => _collectionReference
+      // .orderBy("dateTime", descending: true)
+      .snapshots()
+      .map((event) =>
           event.docs.map((e) => UserWeightModel.fromMap(e)).toList());
 }
